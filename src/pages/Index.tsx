@@ -2,17 +2,45 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import Icon from '@/components/ui/icon';
 
 const Index = () => {
+  // Пиксельные иконки как emoji
+  const PixelIcon = ({ type, size = 20 }: { type: string; size?: number }) => {
+    const icons: Record<string, string> = {
+      menu: '☰',
+      home: '🏠',
+      trending: '📈',
+      search: '🔍',
+      users: '👥',
+      list: '📋',
+      history: '📚',
+      library: '📖',
+      play: '▶️',
+      video: '📹',
+      bell: '🔔',
+      user: '👤'
+    };
+    return (
+      <span 
+        style={{ 
+          fontSize: `${size}px`,
+          filter: 'contrast(1.2) saturate(0.8)',
+          fontFamily: 'monospace'
+        }}
+      >
+        {icons[type] || '⚪'}
+      </span>
+    );
+  };
+
   const navigationItems = [
-    { icon: 'Home', label: 'Главная', active: true },
-    { icon: 'TrendingUp', label: 'Трендовое' },
-    { icon: 'Search', label: 'Поиск' },
-    { icon: 'Users', label: 'Каналы' },
-    { icon: 'List', label: 'Плейлисты' },
-    { icon: 'History', label: 'История' },
-    { icon: 'Library', label: 'Библиотека' },
+    { icon: 'home', label: 'Главная', active: true },
+    { icon: 'trending', label: 'Трендовое' },
+    { icon: 'search', label: 'Поиск' },
+    { icon: 'users', label: 'Каналы' },
+    { icon: 'list', label: 'Плейлисты' },
+    { icon: 'history', label: 'История' },
+    { icon: 'library', label: 'Библиотека' },
   ];
 
   const videoData = [
@@ -79,11 +107,11 @@ const Index = () => {
         <div className="flex items-center justify-between max-w-full">
           <div className="flex items-center space-x-6">
             <Button variant="ghost" size="sm" className="p-2">
-              <Icon name="Menu" size={20} />
+              <PixelIcon type="menu" size={20} />
             </Button>
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-red-600 rounded flex items-center justify-center">
-                <Icon name="Play" size={16} className="text-white fill-white" />
+                <PixelIcon type="play" size={16} />
               </div>
               <span className="text-xl font-bold text-gray-900">Pixel</span>
             </div>
@@ -98,17 +126,17 @@ const Index = () => {
                 />
               </div>
               <Button variant="outline" className="px-6 rounded-l-none rounded-r-full border-gray-300 border-l-0">
-                <Icon name="Search" size={18} />
+                <PixelIcon type="search" size={18} />
               </Button>
             </div>
           </div>
           
           <div className="flex items-center space-x-3">
             <Button variant="ghost" size="sm" className="p-2">
-              <Icon name="Video" size={20} />
+              <PixelIcon type="video" size={20} />
             </Button>
             <Button variant="ghost" size="sm" className="p-2">
-              <Icon name="Bell" size={20} />
+              <PixelIcon type="bell" size={20} />
             </Button>
             <Avatar className="w-8 h-8">
               <AvatarFallback className="bg-blue-600 text-white text-sm">У</AvatarFallback>
@@ -130,8 +158,8 @@ const Index = () => {
                     item.active ? 'bg-gray-100 hover:bg-gray-200' : 'hover:bg-gray-100'
                   }`}
                 >
-                  <Icon name={item.icon} size={20} className="mr-6" />
-                  <span className="text-sm font-medium">{item.label}</span>
+                  <PixelIcon type={item.icon} size={20} />
+                  <span className="text-sm font-medium ml-6">{item.label}</span>
                 </Button>
               ))}
             </div>
